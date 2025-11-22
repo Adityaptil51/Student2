@@ -1,33 +1,25 @@
 import sys
 
-# --- Command-line input handling ---
-if len(sys.argv) == 3:
-    script_name = sys.argv[0]
-    name = sys.argv[1]
-    rollno = sys.argv[2]
-    print("User provided input values:")
+script_name = sys.argv[0]
+
+# Check if 5 subject marks are provided as command-line arguments
+if len(sys.argv) == 6:
+    print("Marks received from Jenkins parameters.")
+    marks = list(map(float, sys.argv[1:6]))
 else:
-    script_name = sys.argv[0]
-    name = "Aditya"
-    rollno = "270"
-    print("No input given - using default values:")
+    print("No parameters given — enter marks manually.")
+    marks = []
+    for i in range(1, 6):
+        m = float(input(f"Enter marks for Subject {i}: "))
+        marks.append(m)
 
-print("Script Name:", script_name)
-print("Student Name:", name)
-print("Roll Number:", rollno)
-
-# --- Input marks for 5 subjects ---
-marks = []
-print("\nEnter marks for 5 subjects:")
-
-for i in range(1, 6):
-    m = float(input(f"Subject {i}: "))
-    marks.append(m)
+print("\nScript Name:", script_name)
+print("Marks:", marks)
 
 # --- Calculate average ---
 avg = sum(marks) / 5
 
-# --- Identify very good marks (>90) ---
+# --- Very Good Marks (above 90) ---
 vg_marks = [m for m in marks if m > 90]
 
 # --- Grade calculation ---
@@ -44,7 +36,6 @@ else:
 
 # --- Output ---
 print("\n----- RESULT -----")
-print("Marks:", marks)
 print("Average:", avg)
 print("Very Good Marks (>90):", vg_marks if vg_marks else "None")
 print("Grade:", grade)
